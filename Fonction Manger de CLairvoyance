@@ -1,0 +1,39 @@
+// On appelle la fonction lorsque l'on détecte un Jump
+ void Damso::jump(vector<vector<int>> vfutu,vector<vector<int>> directions,vector<vector<int>> chemin,int xf, int yf, int caseAmi1, int caseAmi2, int idJoueur)
+ {
+ 	int xmv = vfutu[0] - xf;
+ 	int ymv = vfutu[1] - yf;
+
+ 	vfutu[0] = vfutu[0] + xmv;
+ 	vfutu[1] = vfutu[1] + ymv;
+
+ 	nbJump = nbJump + 1;
+
+ 	int xfutu = 0;
+ 	int yfutu = 1;
+
+ 	if(plateau.getCase(vfutu[0],vfutu[1]) == 0)
+ 	{
+ 		chemin[xfutu] = xmv;
+ 		chemin[yfutu] = ymv;
+
+ 		xfutu = xfutu + 1;
+ 		yfutu = yfutu + 1;
+
+ 		chemin[xfutu] = xmv;
+ 		chemin[yfutu] = ymv;
+
+ 		for(int i(0);i<directions.size();i++)
+ 		{
+ 			 //le vecteur vfutu prend ces deux valeurs 
+
+ 			vfutu[0] = xf + directions[i][0];
+ 			vfutu[1] = yf + directions[i][1];
+
+ 			 if(plateau.getCase(vfutu[0],vfutu[1]) == caseAdv1 || plateau.getCase(vfutu[0],vfutu[1]) == caseAdv2)
+ 			{
+ 				jump(vfutu,directions,chemin,xf,yf,caseAmi1,caseAmi2,idJoueur,nbJump);
+ 			}
+ 		}
+ 	}
+}
